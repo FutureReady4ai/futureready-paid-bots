@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FutureReady AI — Admin Key Generator</title>
+<meta name="robots" content="noindex,nofollow" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0B1437; color: #fff; min-height: 100vh; -webkit-font-smoothing: antialiased; padding: 24px 16px 60px; }
+:root {
+  --navy:#0B1437; --navy-light:#162052; --coral:#FF6B4A; --gold:#FFB938;
+  --mint:#10D9A0; --sky:#38BDF8; --lavender:#A78BFA;
+}
+button { font-family: inherit; cursor: pointer; }
+
+.container { max-width: 720px; margin: 0 auto; }
+
+.header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.brand-icon { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, var(--coral), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900; font-family: 'Outfit',sans-serif; }
+.brand-text { font-size: 18px; font-weight: 800; font-family: 'Outfit',sans-serif; }
+.brand-text span { color: var(--coral); }
+.admin-tag { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #FCA5A5; padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: 800; font-family: 'JetBrains Mono',monospace; letter-spacing: 1px; }
+
+.hero { margin-bottom: 28px; }
+.hero h1 { font-size: 26px; font-weight: 800; font-family: 'Outfit',sans-serif; margin-bottom: 6px; }
+.hero p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+.card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 26px 24px; margin-bottom: 18px; }
+.card h2 { font-size: 16px; font-weight: 800; font-family: 'Outfit',sans-serif; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+.field { margin-bottom: 14px; }
+.field-label { display: block; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.7); margin-bottom: 6px; font-family: 'JetBrains Mono',monospace; letter-spacing: 1px; }
+.field-input, .field-select { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 11px 14px; font-size: 14px; color: #fff; font-family: inherit; outline: none; transition: border-color 0.2s; }
+.field-input:focus, .field-select:focus { border-color: var(--coral); }
+.field-select { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394A3B8'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 10px center; background-size: 20px; padding-right: 40px; }
+.field-input::placeholder { color: rgba(255,255,255,0.3); }
+
+.btn { width: 100%; padding: 13px 18px; border-radius: 12px; font-size: 14px; font-weight: 700; border: none; transition: all 0.2s; }
+.btn.primary { background: linear-gradient(135deg, var(--coral), #FF8A70); color: #fff; }
+.btn.primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,107,74,0.35); }
+.btn.primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.secondary { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.1); }
+.btn.secondary:hover { background: rgba(255,255,255,0.1); }
+.btn-sm { padding: 7px 14px; font-size: 12px; width: auto; }
+
+.tier-info { display: flex; gap: 12px; margin-bottom: 14px; padding: 12px 14px; background: rgba(255,255,255,0.03); border-radius: 10px; font-size: 12px; }
+.tier-info-item { color: rgba(255,255,255,0.7); }
+.tier-info-item strong { color: #fff; font-weight: 700; }
+
+.key-display { background: rgba(16,217,160,0.08); border: 1px solid rgba(16,217,160,0.3); border-radius: 12px; padding: 16px; margin-bottom: 10px; }
+.key-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.key-tier { font-size: 11px; font-weight: 700; color: var(--mint); font-family: 'JetBrains Mono',monospace; letter-spacing: 1px; }
+.key-value { font-size: 16px; font-weight: 800; color: var(--mint); font-family: 'JetBrains Mono',monospace; letter-spacing: 1.5px; word-break: break-all; line-height: 1.5; }
+.key-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+
+.email-template { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px; margin-top: 14px; }
+.email-template-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5); font-family: 'JetBrains Mono',monospace; letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase; }
+.email-template-content { background: #0B1437; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 14px; font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.85); white-space: pre-wrap; font-family: 'Plus Jakarta Sans', sans-serif; max-height: 320px; overflow-y: auto; }
+.email-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+.notice { background: rgba(255,185,56,0.08); border: 1px solid rgba(255,185,56,0.25); border-radius: 10px; padding: 12px 14px; font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 16px; }
+.notice strong { color: var(--gold); }
+
+.error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 10px; padding: 11px 14px; font-size: 13px; color: #FCA5A5; margin-bottom: 12px; }
+
+.session-info { font-size: 11px; color: rgba(255,255,255,0.4); font-family: 'JetBrains Mono',monospace; text-align: center; margin-top: 18px; }
+
+#loginScreen, #mainScreen { animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <div class="brand-icon">FR</div>
+    <div class="brand-text">Future<span>Ready</span> AI</div>
+    <div style="flex:1"></div>
+    <div class="admin-tag">🔒 ADMIN</div>
+  </header>
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen">
+    <div class="hero">
+      <h1>Admin Login</h1>
+      <p>Enter the admin password to generate activation keys for paid customers.</p>
+    </div>
+
+    <div class="card">
+      <h2>🔐 Authenticate</h2>
+      <div class="field">
+        <label class="field-label">Admin Password</label>
+        <input type="password" class="field-input" id="adminPass" placeholder="Enter admin password" autocomplete="current-password" />
+      </div>
+      <div id="loginError"></div>
+      <button class="btn primary" onclick="login()">Unlock Admin Panel</button>
+    </div>
+
+    <div class="session-info">
+      Password is set via the ADMIN_PASSWORD environment variable in Vercel.
+    </div>
+  </div>
+
+  <!-- MAIN SCREEN -->
+  <div id="mainScreen" style="display:none;">
+    <div class="hero">
+      <h1>Generate Activation Keys</h1>
+      <p>Create a unique activation key for a customer who just paid. They'll use this key to access their paid chatbot session.</p>
+    </div>
+
+    <div class="notice">
+      <strong>Workflow:</strong> Customer pays → you generate key → you email the key + access link → customer enters key and starts session. Keys are self-validating (HMAC-signed), no database needed.
+    </div>
+
+    <div class="card">
+      <h2>🎫 Key Configuration</h2>
+
+      <div class="field">
+        <label class="field-label">Session Tier</label>
+        <select class="field-select" id="tier" onchange="updateTierInfo()">
+          <option value="deep-dive">🔍 Deep Dive — $9 / 30 min</option>
+          <option value="strategy-lab">🧪 Strategy Lab — $12 / 45 min</option>
+          <option value="full-blueprint">🗺️ Full Blueprint — $15 / 60 min</option>
+        </select>
+      </div>
+
+      <div class="tier-info" id="tierInfo"></div>
+
+      <div class="field">
+        <label class="field-label">Customer Name (Optional)</label>
+        <input type="text" class="field-input" id="customerName" placeholder="For email template (e.g., Sarah)" />
+      </div>
+
+      <div class="field">
+        <label class="field-label">Customer Email (Optional)</label>
+        <input type="email" class="field-input" id="customerEmail" placeholder="customer@example.com" />
+      </div>
+
+      <div class="field">
+        <label class="field-label">Quantity</label>
+        <input type="number" class="field-input" id="quantity" value="1" min="1" max="50" />
+      </div>
+
+      <div id="genError"></div>
+      <button class="btn primary" onclick="generateKeys()" id="genBtn">⚡ Generate Activation Key</button>
+    </div>
+
+    <!-- Generated keys appear here -->
+    <div id="keysContainer"></div>
+
+    <div style="display:flex;gap:8px;margin-top:24px;">
+      <button class="btn secondary" onclick="logout()">🔓 Logout</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TIER_LABELS = {
+  'deep-dive': '🔍 Deep Dive',
+  'strategy-lab': '🧪 Strategy Lab',
+  'full-blueprint': '🗺️ Full Blueprint'
+};
+
+const TIER_DESCRIPTIONS = {
+  'deep-dive': { minutes: 30, price: 9, features: '4-phase consultation · 5 C\'s assessment · 3 career paths · Action plan' },
+  'strategy-lab': { minutes: 45, price: 12, features: '5-phase consultation · Mock interviews · Salary benchmark · 30-day roadmap' },
+  'full-blueprint': { minutes: 60, price: 15, features: '7-phase premium · 3-path simulation · Essays/cover letters · Downloadable blueprint' }
+};
+
+let adminPassword = '';
+
+function login() {
+  const pass = document.getElementById('adminPass').value;
+  if (!pass) {
+    showError('loginError', 'Please enter the admin password.');
+    return;
+  }
+  adminPassword = pass;
+  // Test the password by attempting a no-op generation
+  testPassword();
+}
+
+async function testPassword() {
+  try {
+    const res = await fetch('/api/generate-key', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPassword, tier: 'deep-dive', quantity: 1 })
+    });
+    if (res.status === 401) {
+      showError('loginError', 'Incorrect password.');
+      adminPassword = '';
+      return;
+    }
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      showError('loginError', data.error || 'Login failed. Check Vercel env vars.');
+      adminPassword = '';
+      return;
+    }
+    // Success - show main screen
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainScreen').style.display = 'block';
+    updateTierInfo();
+  } catch (e) {
+    showError('loginError', 'Network error. Make sure the API is deployed.');
+  }
+}
+
+function logout() {
+  adminPassword = '';
+  document.getElementById('adminPass').value = '';
+  document.getElementById('keysContainer').innerHTML = '';
+  document.getElementById('mainScreen').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'block';
+}
+
+function updateTierInfo() {
+  const tier = document.getElementById('tier').value;
+  const info = TIER_DESCRIPTIONS[tier];
+  document.getElementById('tierInfo').innerHTML = `
+    <div class="tier-info-item"><strong>Duration:</strong> ${info.minutes} min</div>
+    <div class="tier-info-item"><strong>Price:</strong> $${info.price}</div>
+    <div class="tier-info-item"><strong>Includes:</strong> ${info.features}</div>
+  `;
+}
+
+async function generateKeys() {
+  const tier = document.getElementById('tier').value;
+  const quantity = parseInt(document.getElementById('quantity').value) || 1;
+  const btn = document.getElementById('genBtn');
+  btn.disabled = true;
+  btn.textContent = 'Generating...';
+  document.getElementById('genError').innerHTML = '';
+
+  try {
+    const res = await fetch('/api/generate-key', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ adminPassword, tier, quantity })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      showError('genError', data.error || 'Failed to generate keys.');
+      return;
+    }
+    renderKeys(data);
+  } catch (e) {
+    showError('genError', 'Network error.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⚡ Generate Activation Key';
+  }
+}
+
+function renderKeys(data) {
+  const container = document.getElementById('keysContainer');
+  const customerName = document.getElementById('customerName').value.trim() || 'there';
+  const customerEmail = document.getElementById('customerEmail').value.trim();
+  const baseUrl = window.location.origin;
+  const accessUrl = `${baseUrl}/${data.tier}.html`;
+
+  // For each key, render a card
+  let html = '<div class="card"><h2>✅ Keys Generated</h2>';
+  data.keys.forEach((k, i) => {
+    const accessLink = `${accessUrl}?key=${encodeURIComponent(k.raw)}`;
+    html += `
+      <div class="key-display">
+        <div class="key-header">
+          <span class="key-tier">${TIER_LABELS[data.tier]} · ${data.durationMinutes} MIN · $${data.price}</span>
+          <span style="font-size:11px;color:rgba(255,255,255,0.4);">#${i + 1}</span>
+        </div>
+        <div class="key-value">${k.formatted}</div>
+        <div class="key-actions">
+          <button class="btn secondary btn-sm" onclick="copyText('${k.raw}', this)">📋 Copy Key</button>
+          <button class="btn secondary btn-sm" onclick="copyText('${accessLink}', this)">🔗 Copy Access Link</button>
+          <button class="btn secondary btn-sm" onclick="openLink('${accessLink}')">🚀 Test Link</button>
+        </div>
+      </div>
+    `;
+  });
+
+  // Email template (for first/only key)
+  const firstKey = data.keys[0];
+  const accessLink = `${accessUrl}?key=${encodeURIComponent(firstKey.raw)}`;
+  const emailSubject = `Your FutureReady AI ${data.tierLabel} Access`;
+  const emailBody = `Hi ${customerName},
+
+Thank you for your purchase! Your ${data.tierLabel} AI career consultation is ready.
+
+YOUR ACTIVATION KEY:
+${firstKey.formatted}
+
+ACCESS YOUR SESSION:
+${accessLink}
+
+Or visit ${accessUrl} and enter your key manually.
+
+WHAT YOU GET (${data.durationMinutes} minutes, $${data.price}):
+${TIER_DESCRIPTIONS[data.tier].features}
+
+SESSION TIPS:
+• You can pause your session anytime — your conversation auto-saves
+• Resume from the same key, same device, anytime within 14 days
+• Be honest and specific with the AI for the best results
+• The AI's algorithms are updated daily with the latest job market data
+
+If you have any issues, just reply to this email.
+
+— The FutureReady AI Team`;
+
+  html += `
+    <div class="email-template">
+      <div class="email-template-label">📧 Email Template (copy-paste into your email client)</div>
+      <div class="email-template-content">Subject: ${emailSubject}
+
+${emailBody}</div>
+      <div class="email-actions">
+        <button class="btn secondary btn-sm" onclick="copyText(\`${emailBody.replace(/`/g, "'").replace(/\\/g, '\\\\')}\`, this)">📋 Copy Email Body</button>
+        ${customerEmail ? `<button class="btn primary btn-sm" onclick="openMailto('${customerEmail}', '${emailSubject}', \`${emailBody.replace(/`/g, "'").replace(/\\/g, '\\\\')}\`)">✉️ Open in Mail Client</button>` : ''}
+      </div>
+    </div>
+  `;
+
+  html += `<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:14px;font-family:'JetBrains Mono',monospace;text-align:center;">Generated: ${new Date(data.generatedAt).toLocaleString()}</div>`;
+  html += '</div>';
+
+  container.innerHTML = html;
+  container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const original = btn.innerHTML;
+    btn.innerHTML = '✓ Copied!';
+    setTimeout(() => btn.innerHTML = original, 1500);
+  });
+}
+
+function openLink(url) {
+  window.open(url, '_blank', 'noopener');
+}
+
+function openMailto(email, subject, body) {
+  const url = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = url;
+}
+
+function showError(elId, msg) {
+  document.getElementById(elId).innerHTML = `<div class="error">${msg}</div>`;
+}
+
+// Enter key login
+document.getElementById('adminPass').addEventListener('keydown', e => {
+  if (e.key === 'Enter') login();
+});
+
+document.getElementById('adminPass').focus();
+</script>
+</body>
+</html>

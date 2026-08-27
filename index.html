@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FutureReady AI — Deep Dive ($9 / 30 min)</title>
+<meta name="description" content="30-minute AI career Deep Dive — full 5 C's assessment, personalized career path matching, and trend-aware strategy." />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0B1437; color: #fff; -webkit-font-smoothing: antialiased; overflow: hidden; }
+:root {
+  --navy:#0B1437; --navy-light:#162052; --tier-color:#FF6B4A; --tier-soft:#FF8A70;
+  --coral:#FF6B4A; --gold:#FFB938; --mint:#10D9A0; --sky:#38BDF8; --lavender:#A78BFA;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%,100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.1); } }
+::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ─── KEY GATE OVERLAY ─── */
+.gate { position: fixed; inset: 0; background: linear-gradient(170deg, #0B1437 0%, #162052 100%); display: flex; align-items: center; justify-content: center; padding: 24px; z-index: 1000; overflow-y: auto; }
+.gate-card { max-width: 480px; width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 22px; padding: 32px 28px; backdrop-filter: blur(12px); animation: fadeIn 0.4s ease; }
+.gate-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.gate-brand-icon { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, var(--coral), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 900; font-family: 'Outfit',sans-serif; }
+.gate-brand-text { font-size: 17px; font-weight: 800; font-family: 'Outfit',sans-serif; }
+.gate-brand-text span { color: var(--coral); }
+.gate-tier { display: inline-block; background: rgba(255,107,74,0.12); border: 1px solid rgba(255,107,74,0.3); color: var(--tier-color); padding: 5px 12px; border-radius: 16px; font-size: 11px; font-weight: 800; font-family: 'JetBrains Mono',monospace; letter-spacing: 1px; margin-bottom: 18px; }
+.gate-card h1 { font-size: 22px; font-weight: 800; font-family: 'Outfit',sans-serif; margin-bottom: 6px; }
+.gate-card p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 18px; }
+.gate-field { margin-bottom: 14px; }
+.gate-label { display: block; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.65); margin-bottom: 7px; font-family: 'JetBrains Mono',monospace; letter-spacing: 1px; }
+.gate-input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 11px; padding: 14px 16px; font-size: 16px; color: #fff; font-family: 'JetBrains Mono',monospace; outline: none; text-align: center; letter-spacing: 1px; transition: border-color 0.2s; }
+.gate-input:focus { border-color: var(--coral); }
+.gate-input::placeholder { color: rgba(255,255,255,0.25); font-size: 14px; letter-spacing: 1px; }
+.gate-btn { width: 100%; background: linear-gradient(135deg, var(--coral), #FF8A70); color: #fff; border: none; border-radius: 12px; padding: 13px 18px; font-size: 14px; font-weight: 700; transition: all 0.2s; }
+.gate-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,107,74,0.4); }
+.gate-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.gate-error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 10px; padding: 10px 14px; font-size: 12px; color: #FCA5A5; margin-bottom: 12px; line-height: 1.5; }
+.gate-help { margin-top: 14px; font-size: 11px; color: rgba(255,255,255,0.4); text-align: center; line-height: 1.6; font-family: 'JetBrains Mono',monospace; }
+.gate-help a { color: var(--mint); text-decoration: none; font-weight: 700; }
+
+/* Resume card */
+.resume-card { background: linear-gradient(135deg, rgba(16,217,160,0.1), rgba(56,189,248,0.05)); border: 1px solid rgba(16,217,160,0.3); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+.resume-title { font-size: 14px; font-weight: 800; color: var(--mint); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.resume-detail { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 10px; }
+.resume-actions { display: flex; gap: 8px; }
+.resume-btn { flex: 1; padding: 9px 12px; border-radius: 10px; font-size: 12px; font-weight: 700; border: none; }
+.resume-btn.primary { background: var(--mint); color: #0B1437; }
+.resume-btn.secondary { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.1); }
+
+/* ─── PAUSED OVERLAY ─── */
+.paused-overlay { position: fixed; inset: 0; background: rgba(11,20,55,0.96); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; padding: 24px; z-index: 999; }
+.paused-overlay.show { display: flex; }
+.paused-card { max-width: 440px; width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,185,56,0.3); border-radius: 22px; padding: 32px 26px; text-align: center; animation: fadeIn 0.3s ease; }
+.paused-card .icon { font-size: 38px; margin-bottom: 10px; }
+.paused-card h2 { font-size: 21px; font-weight: 800; font-family: 'Outfit',sans-serif; margin-bottom: 6px; }
+.paused-card p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 18px; }
+.paused-summary { background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; margin-bottom: 16px; }
+.paused-summary-row { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.7); padding: 4px 0; }
+.paused-summary-row strong { color: #fff; }
+.paused-buttons { display: flex; gap: 10px; }
+.paused-btn { flex: 1; padding: 11px 16px; border-radius: 11px; font-size: 13px; font-weight: 700; border: none; }
+.paused-btn.primary { background: linear-gradient(135deg, var(--coral), #FF8A70); color: #fff; }
+.paused-btn.secondary { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.1); }
+
+/* ─── MAIN APP ─── */
+.app { display: flex; height: 100vh; max-width: 1100px; margin: 0 auto; background: linear-gradient(170deg, #0B1437 0%, #162052 100%); position: relative; overflow: hidden; }
+.app.hidden { display: none; }
+.app::before { content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(255,107,74,0.15) 0%, transparent 70%); top: -120px; right: -120px; filter: blur(40px); pointer-events: none; }
+
+.sidebar { width: 240px; background: rgba(11,20,55,0.6); backdrop-filter: blur(12px); border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; flex-shrink: 0; z-index: 5; }
+.sidebar-header { padding: 18px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.sidebar-brand { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.sidebar-brand-icon { width: 32px; height: 32px; border-radius: 9px; background: linear-gradient(135deg, var(--coral), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; font-family: 'Outfit',sans-serif; }
+.sidebar-brand-text { font-size: 14px; font-weight: 800; font-family: 'Outfit',sans-serif; }
+.sidebar-brand-text span { color: var(--coral); }
+.tier-badge { background: rgba(255,107,74,0.12); border: 1px solid rgba(255,107,74,0.25); color: var(--tier-color); padding: 5px 10px; border-radius: 16px; font-size: 10px; font-weight: 700; font-family: 'JetBrains Mono',monospace; letter-spacing: 1px; display: inline-block; }
+.sidebar-section { padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.sidebar-label { font-size: 9px; font-weight: 800; color: rgba(255,255,255,0.3); font-family: 'JetBrains Mono',monospace; letter-spacing: 1.5px; margin-bottom: 10px; text-transform: uppercase; }
+.fivec-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; margin-bottom: 4px; border-radius: 8px; }
+.fivec-icon { font-size: 14px; }
+.fivec-name { font-size: 12px; font-weight: 600; }
+.framework-note { margin-top: auto; padding: 14px 16px; font-size: 9px; line-height: 1.7; color: rgba(255,255,255,0.3); font-family: 'JetBrains Mono',monospace; border-top: 1px solid rgba(255,255,255,0.06); }
+
+.main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+.timer-bar { padding: 10px 20px; background: rgba(255,107,74,0.06); border-bottom: 1px solid rgba(255,107,74,0.15); display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.timer-label { font-size: 10px; font-weight: 700; color: var(--tier-color); font-family: 'JetBrains Mono',monospace; letter-spacing: 1px; }
+.timer-progress { flex: 1; height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+.timer-fill { height: 100%; background: linear-gradient(90deg, var(--tier-color), var(--tier-soft)); transition: width 1s linear; }
+.timer-fill.warning { background: linear-gradient(90deg, var(--gold), #FBBF24); }
+.timer-fill.expired { background: #EF4444; }
+.timer-time { font-size: 14px; font-weight: 800; font-family: 'JetBrains Mono',monospace; min-width: 55px; text-align: right; }
+.menu-btn { display: none; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 6px 10px; color: #fff; font-size: 14px; }
+.pause-btn { background: rgba(255,185,56,0.12); border: 1px solid rgba(255,185,56,0.25); color: var(--gold); border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono',monospace; letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px; }
+.pause-btn:hover { background: rgba(255,185,56,0.2); }
+
+.intro { padding: 24px 24px 8px; flex-shrink: 0; }
+.intro h1 { font-size: 22px; font-weight: 800; font-family: 'Outfit',sans-serif; letter-spacing: -0.5px; margin-bottom: 4px; }
+.intro h1 span { color: var(--tier-color); }
+.intro p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.55; max-width: 580px; }
+
+.phase-tracker { display: flex; gap: 6px; margin-top: 12px; padding: 0 24px; flex-shrink: 0; }
+.phase-pill { flex: 1; padding: 6px 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); font-family: 'JetBrains Mono',monospace; text-align: center; transition: all 0.3s; }
+.phase-pill.active { background: rgba(255,107,74,0.12); border-color: var(--tier-color); color: var(--tier-color); }
+.phase-pill.done { background: rgba(16,217,160,0.1); border-color: rgba(16,217,160,0.25); color: var(--mint); }
+
+.messages { flex: 1; overflow-y: auto; padding: 16px 24px 8px; display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 1; }
+.msg { display: flex; gap: 8px; animation: slideUp 0.3s ease both; }
+.msg.user { justify-content: flex-end; }
+.msg-avatar { width: 32px; height: 32px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.msg-avatar.ai { background: linear-gradient(135deg, var(--coral), var(--gold)); }
+.msg-avatar.user { background: rgba(255,255,255,0.1); }
+.msg-bubble { max-width: 78%; padding: 14px 18px; border-radius: 18px 18px 18px 4px; font-size: 14px; line-height: 1.75; }
+.msg.ai .msg-bubble { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.06); }
+.msg.user .msg-bubble { background: linear-gradient(135deg, var(--tier-color), var(--tier-soft)); color: #fff; font-weight: 500; border-radius: 18px 18px 4px 18px; }
+.msg-bubble strong { color: var(--gold); font-weight: 700; }
+.msg.user .msg-bubble strong { color: rgba(255,255,255,0.95); }
+.msg-bubble h2 { font-size: 16px; font-weight: 800; font-family: 'Outfit',sans-serif; margin: 10px 0 6px; color: #fff; }
+.msg-bubble h3 { font-size: 14px; font-weight: 700; margin: 8px 0 4px; color: var(--gold); }
+.msg-bubble .bullet { display: flex; gap: 8px; margin: 3px 0; }
+.msg-bubble .bullet-marker { color: var(--coral); flex-shrink: 0; }
+.msg-bubble .numbered { display: flex; gap: 8px; margin: 3px 0; }
+.msg-bubble .numbered-marker { color: var(--gold); font-weight: 700; flex-shrink: 0; font-family: 'JetBrains Mono',monospace; font-size: 12px; }
+
+.typing { display: flex; gap: 10px; align-items: center; }
+.typing-dots { display: flex; gap: 4px; }
+.typing-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--coral); }
+.typing-dot:nth-child(1) { animation: pulse 1.2s ease-in-out 0s infinite; }
+.typing-dot:nth-child(2) { animation: pulse 1.2s ease-in-out 0.2s infinite; }
+.typing-dot:nth-child(3) { animation: pulse 1.2s ease-in-out 0.4s infinite; }
+.typing-text { font-size: 11px; color: rgba(255,255,255,0.4); font-family: 'JetBrains Mono',monospace; }
+
+.input-area { padding: 12px 24px 18px; border-top: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); flex-shrink: 0; }
+.input-row { display: flex; gap: 10px; align-items: flex-end; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 4px 4px 4px 16px; }
+.input-row textarea { flex: 1; background: transparent; border: none; outline: none; color: #fff; font-size: 14px; font-family: inherit; resize: none; padding: 9px 0; line-height: 1.5; max-height: 120px; }
+.input-row textarea:disabled { opacity: 0.3; }
+.send-btn { background: linear-gradient(135deg, var(--coral), #FF8A70); color: #fff; border: none; border-radius: 12px; padding: 10px 22px; font-size: 14px; font-weight: 700; transition: all 0.2s; flex-shrink: 0; }
+.send-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.send-btn:not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,107,74,0.4); }
+.input-footer { display: flex; justify-content: space-between; margin-top: 8px; font-size: 9px; color: rgba(255,255,255,0.25); font-family: 'JetBrains Mono',monospace; }
+
+.expired-card { margin: 16px 24px; padding: 22px; background: linear-gradient(135deg, rgba(255,107,74,0.12), rgba(255,185,56,0.06)); border: 1px solid rgba(255,107,74,0.25); border-radius: 16px; text-align: center; }
+.expired-card .icon { font-size: 32px; margin-bottom: 8px; }
+.expired-card h3 { font-size: 17px; font-weight: 800; font-family: 'Outfit',sans-serif; margin-bottom: 4px; }
+.expired-card p { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 14px; }
+.upgrade-btn { background: var(--coral); color: #fff; border: none; border-radius: 11px; padding: 10px 22px; font-size: 13px; font-weight: 700; margin: 4px; text-decoration: none; display: inline-block; }
+
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(16,217,160,0.95); color: #0B1437; padding: 10px 18px; border-radius: 12px; font-size: 13px; font-weight: 700; z-index: 2000; animation: slideUp 0.3s ease; }
+
+@media (max-width: 768px) {
+  .sidebar { position: absolute; top: 0; left: 0; height: 100%; z-index: 100; transform: translateX(-100%); transition: transform 0.3s; }
+  .sidebar.open { transform: translateX(0); }
+  .menu-btn { display: flex; }
+  .intro h1 { font-size: 20px; }
+  .intro p { font-size: 12px; }
+  .msg-bubble { max-width: 88%; font-size: 13px; }
+  .phase-pill { font-size: 9px; padding: 5px 6px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── KEY GATE ─── -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div class="gate-brand">
+      <div class="gate-brand-icon">FR</div>
+      <div class="gate-brand-text">Future<span>Ready</span> AI</div>
+    </div>
+    <div class="gate-tier">🔍 DEEP DIVE — $9 / 30 MIN</div>
+    <h1>Enter Your Activation Key</h1>
+    <p>Paste the activation key from your purchase email to unlock your Deep Dive session.</p>
+
+    <div id="resumeOffer"></div>
+
+    <div id="gateError"></div>
+
+    <div class="gate-field">
+      <label class="gate-label">ACTIVATION KEY</label>
+      <input type="text" class="gate-input" id="keyInput" placeholder="FR-DD-XXXX-XXXX-XXXX-XXXX" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" />
+    </div>
+
+    <button class="gate-btn" id="gateBtn" onclick="validateAndUnlock()">Unlock Session →</button>
+
+    <div class="gate-help">
+      Don't have a key? <a href="/" target="_top">Purchase a session</a><br>
+      Lost your key? Reply to your purchase email for support.
+    </div>
+  </div>
+</div>
+
+<!-- ─── PAUSED OVERLAY ─── -->
+<div class="paused-overlay" id="pausedOverlay">
+  <div class="paused-card">
+    <div class="icon">⏸️</div>
+    <h2>Session Paused</h2>
+    <p>Your progress is saved. Resume anytime within 14 days from this device using the same key.</p>
+    <div class="paused-summary" id="pausedSummary"></div>
+    <div class="paused-buttons">
+      <button class="paused-btn secondary" onclick="exitSession()">Exit (Save & Close)</button>
+      <button class="paused-btn primary" onclick="resumeSession()">▶ Resume Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── MAIN CHAT APP ─── -->
+<div class="app hidden" id="app">
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-icon">FR</div>
+        <div class="sidebar-brand-text">Future<span>Ready</span> AI</div>
+      </div>
+      <div class="tier-badge">🔍 DEEP DIVE</div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">The 5 C's Framework</div>
+      <div class="fivec-item" style="background:rgba(56,189,248,0.06)"><span class="fivec-icon">🔍</span><span class="fivec-name" style="color:var(--sky)">Curiosity</span></div>
+      <div class="fivec-item" style="background:rgba(255,107,74,0.06)"><span class="fivec-icon">🦁</span><span class="fivec-name" style="color:var(--coral)">Courage</span></div>
+      <div class="fivec-item" style="background:rgba(167,139,250,0.06)"><span class="fivec-icon">🎨</span><span class="fivec-name" style="color:var(--lavender)">Creativity</span></div>
+      <div class="fivec-item" style="background:rgba(16,217,160,0.06)"><span class="fivec-icon">💚</span><span class="fivec-name" style="color:var(--mint)">Compassion</span></div>
+      <div class="fivec-item" style="background:rgba(255,185,56,0.06)"><span class="fivec-icon">🎙️</span><span class="fivec-name" style="color:var(--gold)">Communication</span></div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Session Info</div>
+      <div style="font-size:11px;line-height:1.8;color:rgba(255,255,255,0.55);" id="sessionInfo">
+        ⏸️ Pause anytime — auto-saved<br>
+        🔄 Resume within 14 days<br>
+        🔑 Same key, same device
+      </div>
+    </div>
+
+    <div class="framework-note">
+      🤖 Algorithm v2026.3<br>
+      📈 Live job market data<br>
+      🧠 5 C's engine active<br>
+      💾 Session auto-save: ON
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="timer-bar">
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+      <span class="timer-label">30:00 SESSION</span>
+      <div class="timer-progress"><div class="timer-fill" id="timerFill" style="width:0%"></div></div>
+      <span class="timer-time" id="timerTime">30:00</span>
+      <button class="pause-btn" onclick="pauseSession()">⏸ PAUSE</button>
+    </div>
+
+    <div class="intro">
+      <h1>Deep Dive — <span>$9</span></h1>
+      <p>30 minutes of personalized AI career consulting. Full intake, 5 C's assessment, 3 career matches, and an action plan.</p>
+    </div>
+
+    <div class="phase-tracker" id="phaseTracker">
+      <div class="phase-pill active" data-phase="1">1. INTAKE</div>
+      <div class="phase-pill" data-phase="2">2. 5 C's ASSESS</div>
+      <div class="phase-pill" data-phase="3">3. CAREER MATCH</div>
+      <div class="phase-pill" data-phase="4">4. ACTION PLAN</div>
+    </div>
+
+    <div class="messages" id="messages"></div>
+
+    <div class="input-area">
+      <div class="input-row">
+        <textarea id="input" placeholder="Tell me about your education and goals..." rows="1"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+      </div>
+      <div class="input-footer">
+        <span>🔍 Deep Dive · $9 / 30 min · Auto-saved</span>
+        <span>Press ⏸ to pause anytime</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── CONFIG ───
+const TIER_ID = 'deep-dive';
+const TIER_LABEL = 'Deep Dive';
+const TIER_DURATION_MIN = 30;
+const TOTAL_SECONDS = TIER_DURATION_MIN * 60;
+const STORAGE_PREFIX = 'futureready_session_';
+const STORAGE_EXPIRY_DAYS = 14;
+const API_VALIDATE = '/api/validate-key';
+const API_CHAT = '/api/chat-paid';
+
+// ─── STATE ───
+let activationKey = '';
+let messages = [];
+let elapsed = 0;
+let currentPhase = 1;
+let sessionStarted = false;
+let timerInterval;
+let saveDebounce;
+let isPaused = false;
+
+// ─── KEY GATE ───
+async function validateAndUnlock(silent = false) {
+  const rawKey = document.getElementById('keyInput').value.trim();
+  if (!rawKey && !silent) {
+    showGateError('Please paste your activation key.');
+    return;
+  }
+  if (!rawKey) return;
+
+  const btn = document.getElementById('gateBtn');
+  btn.disabled = true;
+  btn.textContent = 'Validating...';
+  document.getElementById('gateError').innerHTML = '';
+
+  try {
+    const res = await fetch(API_VALIDATE, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ activationKey: rawKey, expectedTier: TIER_ID })
+    });
+    const data = await res.json();
+
+    if (!res.ok || !data.valid) {
+      showGateError(data.message || 'Invalid key. Please check and try again.');
+      btn.disabled = false;
+      btn.textContent = 'Unlock Session →';
+      return;
+    }
+
+    activationKey = rawKey;
+    // Check for saved session under this key
+    const saved = loadSavedSession(rawKey);
+    if (saved && !silent) {
+      showResumeOffer(saved);
+      btn.disabled = false;
+      btn.textContent = 'Unlock Session →';
+    } else {
+      // Start fresh (or already auto-resumed)
+      startSession(saved);
+    }
+  } catch (e) {
+    showGateError('Network error. Please try again.');
+    btn.disabled = false;
+    btn.textContent = 'Unlock Session →';
+  }
+}
+
+function showGateError(msg) {
+  document.getElementById('gateError').innerHTML = `<div class="gate-error">⚠️ ${msg}</div>`;
+}
+
+function showResumeOffer(saved) {
+  const remaining = TOTAL_SECONDS - saved.elapsed;
+  const remainMin = Math.floor(remaining / 60);
+  const remainSec = remaining % 60;
+  const messageCount = saved.messages.length;
+  document.getElementById('resumeOffer').innerHTML = `
+    <div class="resume-card">
+      <div class="resume-title">💾 Saved Session Found</div>
+      <div class="resume-detail">
+        You have a paused session from ${new Date(saved.lastSavedAt).toLocaleString()}.<br>
+        <strong style="color:#fff;">${messageCount} messages</strong> · <strong style="color:#fff;">${remainMin}:${remainSec.toString().padStart(2,'0')} remaining</strong>
+      </div>
+      <div class="resume-actions">
+        <button class="resume-btn secondary" onclick="discardSavedAndStart()">Start Fresh</button>
+        <button class="resume-btn primary" onclick="resumeFromSaved()">▶ Resume Session</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('keyInput').disabled = true;
+  document.getElementById('gateBtn').style.display = 'none';
+}
+
+function discardSavedAndStart() {
+  localStorage.removeItem(STORAGE_PREFIX + activationKey);
+  startSession(null);
+}
+
+function resumeFromSaved() {
+  const saved = loadSavedSession(activationKey);
+  startSession(saved);
+}
+
+function startSession(saved) {
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('app').classList.remove('hidden');
+
+  if (saved) {
+    messages = saved.messages || [];
+    elapsed = saved.elapsed || 0;
+    currentPhase = saved.currentPhase || 1;
+    // Render saved messages
+    messages.forEach(m => renderMessage(m.role, m.content));
+    updatePhases();
+    updateTimer();
+    sessionStarted = true;
+    startTimer();
+    showToast('Session resumed');
+  } else {
+    // First-time greeting
+    setTimeout(() => {
+      const greeting = `## 🔍 Welcome to Deep Dive — 30 minutes\n\nI'm your AI career consultant, powered by real-time labor market algorithms and the **5 C's Framework**. Over the next 30 minutes, I'll guide you through 4 phases:\n\n1. **Intake** — understanding you and your goals\n2. **5 C's Assessment** — your soft skill profile\n3. **Career Match** — 3 paths that fit YOU\n4. **Action Plan** — what to do this month\n\n💡 **Tip:** You can pause this session anytime — your progress auto-saves.\n\nLet's start.\n\n**What's your current education level?**\n\n(High school, university student, recent graduate, or considering a career change?)`;
+      appendMessage('assistant', greeting);
+    }, 400);
+  }
+
+  document.getElementById('input').focus();
+}
+
+// ─── PAUSE / RESUME ───
+function pauseSession() {
+  if (!sessionStarted || elapsed >= TOTAL_SECONDS) return;
+  saveSession();
+  isPaused = true;
+  clearInterval(timerInterval);
+  // Update paused summary
+  const remaining = TOTAL_SECONDS - elapsed;
+  const remainMin = Math.floor(remaining / 60);
+  const remainSec = remaining % 60;
+  document.getElementById('pausedSummary').innerHTML = `
+    <div class="paused-summary-row"><span>Session:</span><strong>${TIER_LABEL}</strong></div>
+    <div class="paused-summary-row"><span>Phase:</span><strong>${currentPhase} of 4</strong></div>
+    <div class="paused-summary-row"><span>Time used:</span><strong>${Math.floor(elapsed/60)}:${(elapsed%60).toString().padStart(2,'0')}</strong></div>
+    <div class="paused-summary-row"><span>Time remaining:</span><strong style="color:var(--gold);">${remainMin}:${remainSec.toString().padStart(2,'0')}</strong></div>
+    <div class="paused-summary-row"><span>Messages exchanged:</span><strong>${messages.length}</strong></div>
+  `;
+  document.getElementById('pausedOverlay').classList.add('show');
+}
+
+function resumeSession() {
+  isPaused = false;
+  document.getElementById('pausedOverlay').classList.remove('show');
+  startTimer();
+  showToast('Session resumed');
+}
+
+function exitSession() {
+  saveSession();
+  document.getElementById('pausedOverlay').classList.remove('show');
+  showToast('Session saved. Return anytime with your key.');
+  setTimeout(() => {
+    // Redirect to home or close
+    if (window.top !== window.self) {
+      // In iframe — just stay here paused
+      document.getElementById('pausedOverlay').classList.add('show');
+    } else {
+      window.location.href = '/';
+    }
+  }, 1500);
+}
+
+// ─── PERSISTENCE ───
+function saveSession() {
+  if (!activationKey) return;
+  const state = {
+    version: 1,
+    tier: TIER_ID,
+    activationKey,
+    messages,
+    elapsed,
+    currentPhase,
+    lastSavedAt: Date.now()
+  };
+  try {
+    localStorage.setItem(STORAGE_PREFIX + activationKey, JSON.stringify(state));
+  } catch (e) {
+    console.warn('Could not save session', e);
+  }
+}
+
+function loadSavedSession(key) {
+  try {
+    const raw = localStorage.getItem(STORAGE_PREFIX + key);
+    if (!raw) return null;
+    const state = JSON.parse(raw);
+    // Check expiry (14 days)
+    const ageDays = (Date.now() - state.lastSavedAt) / (1000 * 60 * 60 * 24);
+    if (ageDays > STORAGE_EXPIRY_DAYS) {
+      localStorage.removeItem(STORAGE_PREFIX + key);
+      return null;
+    }
+    // Check completed
+    if (state.elapsed >= TOTAL_SECONDS) return null;
+    return state;
+  } catch (e) {
+    return null;
+  }
+}
+
+function autoSave() {
+  clearTimeout(saveDebounce);
+  saveDebounce = setTimeout(saveSession, 1000);
+}
+
+// ─── CHAT ───
+async function sendMessage() {
+  const input = document.getElementById('input');
+  const text = input.value.trim();
+  if (!text || isExpired() || isPaused) return;
+  if (!sessionStarted) { sessionStarted = true; startTimer(); }
+
+  appendMessage('user', text);
+  input.value = '';
+  input.style.height = 'auto';
+  setSending(true);
+  showTyping();
+
+  try {
+    const res = await fetch(API_CHAT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        activationKey,
+        messages: messages.map(m => ({ role: m.role, content: m.content })),
+        elapsedSeconds: elapsed,
+        currentPhase
+      })
+    });
+
+    removeTyping();
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      if (res.status === 401) {
+        appendMessage('assistant', `🔒 **Your activation key was rejected.** This may happen if the key was revoked. Please contact support.`);
+      } else if (res.status === 429) {
+        appendMessage('assistant', `⏱ ${err.message || 'Rate limit hit. Wait a moment.'}`);
+      } else {
+        appendMessage('assistant', `⚠️ ${err.message || 'Request failed. Please try again.'}`);
+      }
+      setSending(false);
+      return;
+    }
+
+    const data = await res.json();
+    let aiText = '';
+    if (data.content) for (const b of data.content) if (b.type === 'text' && b.text) aiText += b.text;
+    if (!aiText) aiText = "Let me reframe — could you share a bit more about that?";
+
+    const phaseMatch = aiText.match(/\[PHASE_(\d)\]/);
+    if (phaseMatch) {
+      currentPhase = parseInt(phaseMatch[1]);
+      updatePhases();
+      aiText = aiText.replace(/\[PHASE_\d\]/g, '').trim();
+    }
+
+    appendMessage('assistant', aiText);
+  } catch (e) {
+    console.error(e);
+    removeTyping();
+    appendMessage('assistant', "⚠️ Connection hiccup — try again.");
+  }
+  setSending(false);
+  document.getElementById('input').focus();
+}
+
+function appendMessage(role, content) {
+  messages.push({ role, content });
+  renderMessage(role, content);
+  autoSave();
+}
+
+function renderMessage(role, content) {
+  const container = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = `msg ${role === 'user' ? 'user' : 'ai'}`;
+  div.innerHTML = `
+    ${role === 'assistant' ? '<div class="msg-avatar ai">🤖</div>' : ''}
+    <div class="msg-bubble">${formatMarkdown(content)}</div>
+    ${role === 'user' ? '<div class="msg-avatar user">👤</div>' : ''}
+  `;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function showTyping() {
+  const container = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'msg ai'; div.id = 'typingIndicator';
+  div.innerHTML = `<div class="msg-avatar ai">🤖</div><div class="msg-bubble"><div class="typing"><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div><span class="typing-text">Analyzing your profile & live job market...</span></div></div>`;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function removeTyping() { const t = document.getElementById('typingIndicator'); if (t) t.remove(); }
+function setSending(s) { document.getElementById('sendBtn').disabled = s; document.getElementById('input').disabled = s; }
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+
+function updatePhases() {
+  document.querySelectorAll('.phase-pill').forEach(p => {
+    const phase = parseInt(p.dataset.phase);
+    p.classList.remove('active', 'done');
+    if (phase < currentPhase) p.classList.add('done');
+    if (phase === currentPhase) p.classList.add('active');
+  });
+}
+
+function startTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    if (isPaused) return;
+    elapsed++;
+    updateTimer();
+    if (elapsed % 10 === 0) saveSession(); // Periodic save
+    if (elapsed >= TOTAL_SECONDS) { clearInterval(timerInterval); showExpired(); }
+  }, 1000);
+}
+
+function updateTimer() {
+  const remaining = TOTAL_SECONDS - elapsed;
+  const m = Math.floor(remaining / 60), s = remaining % 60;
+  document.getElementById('timerTime').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+  const fill = document.getElementById('timerFill');
+  fill.style.width = `${(elapsed/TOTAL_SECONDS)*100}%`;
+  fill.classList.remove('warning', 'expired');
+  if (remaining <= 0) { fill.classList.add('expired'); document.getElementById('timerTime').textContent = 'TIME UP'; }
+  else if (remaining <= 180) fill.classList.add('warning');
+}
+
+function isExpired() { return elapsed >= TOTAL_SECONDS; }
+
+function showExpired() {
+  saveSession();
+  const container = document.getElementById('messages');
+  const card = document.createElement('div');
+  card.className = 'expired-card';
+  card.innerHTML = `
+    <div class="icon">⏰</div>
+    <h3>Deep Dive session complete</h3>
+    <p>Hope this helped! For mock interviews and a 30-day roadmap, upgrade to Strategy Lab.</p>
+    <a class="upgrade-btn" href="/strategy-lab.html" target="_top">→ Strategy Lab ($12 / 45 min)</a>
+    <a class="upgrade-btn" style="background:linear-gradient(135deg,var(--mint),var(--gold));color:#0B1437" href="/full-blueprint.html" target="_top">→ Full Blueprint ($15 / 60 min)</a>
+  `;
+  container.appendChild(card);
+  container.scrollTop = container.scrollHeight;
+  document.getElementById('input').disabled = true;
+  document.getElementById('sendBtn').disabled = true;
+}
+
+function formatMarkdown(text) {
+  if (!text) return "";
+  return text
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/^[-•] (.+)$/gm, '<div class="bullet"><span class="bullet-marker">•</span><span>$1</span></div>')
+    .replace(/^(\d+)\. (.+)$/gm, '<div class="numbered"><span class="numbered-marker">$1.</span><span>$2</span></div>')
+    .replace(/\n\n/g, '<div style="height:8px"></div>')
+    .replace(/\n/g, '<br/>');
+}
+
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
+}
+
+// Auto-save on visibility change (tab close/switch)
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden' && sessionStarted && !isExpired()) saveSession();
+});
+window.addEventListener('beforeunload', () => { if (sessionStarted && !isExpired()) saveSession(); });
+
+// Textarea handlers
+document.getElementById('input').addEventListener('input', e => {
+  e.target.style.height = 'auto';
+  e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
+});
+document.getElementById('input').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
+// Auto-fill key from URL ?key= param
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const urlKey = params.get('key');
+  if (urlKey) {
+    document.getElementById('keyInput').value = urlKey;
+    // Auto-validate after slight delay
+    setTimeout(() => validateAndUnlock(), 300);
+  }
+});
+
+document.getElementById('keyInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') validateAndUnlock();
+});
+</script>
+</body>
+</html>

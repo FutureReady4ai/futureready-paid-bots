@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FutureReady AI — Full Blueprint ($15 / 60 min)</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0B1437; color: #fff; -webkit-font-smoothing: antialiased; overflow: hidden; }
+:root { --navy:#0B1437; --tier-color:#10D9A0; --tier-soft:#34E0B0; --coral:#FF6B4A; --gold:#FFB938; --mint:#10D9A0; --sky:#38BDF8; --lavender:#A78BFA; }
+@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+@keyframes slideUp { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:translateY(0) } }
+@keyframes pulse { 0%,100% { opacity:0.3; transform:scale(0.8) } 50% { opacity:1; transform:scale(1.1) } }
+@keyframes shimmer { 0% { background-position:-200% 0 } 100% { background-position:200% 0 } }
+::-webkit-scrollbar { width:6px } ::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.12); border-radius:3px }
+button { font-family:inherit; cursor:pointer }
+
+/* KEY GATE */
+.gate { position:fixed; inset:0; background:linear-gradient(170deg,#0B1437,#162052); display:flex; align-items:center; justify-content:center; padding:24px; z-index:1000; overflow-y:auto }
+.gate-card { max-width:480px; width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:22px; padding:32px 28px; backdrop-filter:blur(12px); animation:fadeIn 0.4s ease }
+.gate-brand { display:flex; align-items:center; gap:10px; margin-bottom:22px }
+.gate-brand-icon { width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg,var(--coral),var(--gold)); display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:900; font-family:'Outfit' }
+.gate-brand-text { font-size:17px; font-weight:800; font-family:'Outfit' }
+.gate-brand-text span { color:var(--coral) }
+.gate-tier { display:inline-block; background:linear-gradient(135deg,rgba(16,217,160,0.15),rgba(255,185,56,0.08)); border:1px solid rgba(16,217,160,0.3); color:var(--tier-color); padding:5px 12px; border-radius:16px; font-size:11px; font-weight:800; font-family:'JetBrains Mono'; letter-spacing:1px; margin-bottom:18px }
+.premium-tag { background:linear-gradient(90deg,var(--gold),var(--coral),var(--gold)); background-size:200% auto; animation:shimmer 3s linear infinite; -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:10px; font-weight:800; font-family:'JetBrains Mono'; letter-spacing:1.5px; margin-left:6px }
+.gate-card h1 { font-size:22px; font-weight:800; font-family:'Outfit'; margin-bottom:6px }
+.gate-card p { font-size:13px; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:18px }
+.gate-field { margin-bottom:14px }
+.gate-label { display:block; font-size:11px; font-weight:700; color:rgba(255,255,255,0.65); margin-bottom:7px; font-family:'JetBrains Mono'; letter-spacing:1px }
+.gate-input { width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:11px; padding:14px 16px; font-size:16px; color:#fff; font-family:'JetBrains Mono'; outline:none; text-align:center; letter-spacing:1px }
+.gate-input:focus { border-color:var(--mint) }
+.gate-input::placeholder { color:rgba(255,255,255,0.25); font-size:14px }
+.gate-btn { width:100%; background:linear-gradient(135deg,var(--mint),var(--gold)); color:#0B1437; border:none; border-radius:12px; padding:13px 18px; font-size:14px; font-weight:800; transition:all 0.2s }
+.gate-btn:hover:not(:disabled) { transform:translateY(-1px); box-shadow:0 4px 16px rgba(16,217,160,0.4) }
+.gate-btn:disabled { opacity:0.5; cursor:not-allowed }
+.gate-error { background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:10px; padding:10px 14px; font-size:12px; color:#FCA5A5; margin-bottom:12px; line-height:1.5 }
+.gate-help { margin-top:14px; font-size:11px; color:rgba(255,255,255,0.4); text-align:center; line-height:1.6; font-family:'JetBrains Mono' }
+.gate-help a { color:var(--mint); text-decoration:none; font-weight:700 }
+
+.resume-card { background:linear-gradient(135deg,rgba(16,217,160,0.1),rgba(56,189,248,0.05)); border:1px solid rgba(16,217,160,0.3); border-radius:14px; padding:18px; margin-bottom:16px }
+.resume-title { font-size:13px; font-weight:800; color:var(--mint); margin-bottom:4px }
+.resume-detail { font-size:11px; color:rgba(255,255,255,0.6); line-height:1.55; margin-bottom:10px }
+.resume-detail strong { color:#fff }
+.resume-actions { display:flex; gap:8px }
+.resume-btn { flex:1; padding:8px 12px; border-radius:9px; font-size:12px; font-weight:700; border:none }
+.resume-btn.primary { background:var(--mint); color:#0B1437 }
+.resume-btn.secondary { background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.7); border:1px solid rgba(255,255,255,0.1) }
+
+/* PAUSED OVERLAY */
+.paused-overlay { position:fixed; inset:0; background:rgba(11,20,55,0.96); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; padding:24px; z-index:999 }
+.paused-overlay.show { display:flex; animation:fadeIn 0.25s ease }
+.paused-card { max-width:440px; width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,185,56,0.3); border-radius:22px; padding:30px 24px; text-align:center }
+.paused-card .icon { font-size:38px; margin-bottom:10px }
+.paused-card h2 { font-size:20px; font-weight:800; font-family:'Outfit'; margin-bottom:6px }
+.paused-card p { font-size:13px; color:rgba(255,255,255,0.6); line-height:1.6; margin-bottom:18px }
+.paused-summary { background:rgba(255,255,255,0.04); border-radius:12px; padding:14px; margin-bottom:16px; text-align:left }
+.paused-summary-row { display:flex; justify-content:space-between; font-size:12px; color:rgba(255,255,255,0.7); padding:4px 0 }
+.paused-summary-row strong { color:#fff }
+.paused-buttons { display:flex; gap:10px }
+.paused-btn { flex:1; padding:11px 16px; border-radius:11px; font-size:13px; font-weight:700; border:none }
+.paused-btn.primary { background:linear-gradient(135deg,var(--mint),var(--gold)); color:#0B1437 }
+.paused-btn.secondary { background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.8); border:1px solid rgba(255,255,255,0.1) }
+
+/* MAIN APP */
+.app { display:flex; height:100vh; max-width:1280px; margin:0 auto; background:linear-gradient(170deg,#0B1437 0%,#0E2530 50%,#162052 100%); position:relative; overflow:hidden }
+.app.hidden { display:none }
+.app::before { content:''; position:absolute; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,rgba(16,217,160,0.15) 0%,transparent 70%); top:-150px; right:-150px; filter:blur(50px); pointer-events:none }
+
+/* SIDEBAR */
+.sidebar { width:280px; background:rgba(11,20,55,0.75); backdrop-filter:blur(12px); border-right:1px solid rgba(255,255,255,0.06); display:flex; flex-direction:column; flex-shrink:0; z-index:5 }
+.sidebar-header { padding:18px 16px; border-bottom:1px solid rgba(255,255,255,0.06) }
+.sidebar-brand { display:flex; align-items:center; gap:8px; margin-bottom:12px }
+.sidebar-brand-icon { width:32px; height:32px; border-radius:9px; background:linear-gradient(135deg,var(--coral),var(--gold)); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:900; font-family:'Outfit' }
+.sidebar-brand-text { font-size:14px; font-weight:800; font-family:'Outfit' }
+.sidebar-brand-text span { color:var(--coral) }
+.tier-badge { background:linear-gradient(135deg,rgba(16,217,160,0.15),rgba(255,185,56,0.08)); border:1px solid rgba(16,217,160,0.3); color:var(--tier-color); padding:5px 10px; border-radius:16px; font-size:10px; font-weight:700; font-family:'JetBrains Mono'; letter-spacing:1px; display:inline-block }
+.sidebar-section { padding:14px 16px; border-bottom:1px solid rgba(255,255,255,0.06) }
+.sidebar-label { font-size:9px; font-weight:800; color:rgba(255,255,255,0.3); font-family:'JetBrains Mono'; letter-spacing:1.5px; margin-bottom:10px; text-transform:uppercase }
+.lab-tool { display:flex; align-items:center; gap:10px; padding:9px 11px; margin-bottom:4px; border-radius:9px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.05); cursor:pointer; transition:all 0.2s }
+.lab-tool:hover { background:rgba(16,217,160,0.08); border-color:rgba(16,217,160,0.25) }
+.lab-tool .icon { font-size:16px } .lab-tool .name { font-size:12px; font-weight:600; flex:1 } .lab-tool .arrow { font-size:12px; color:rgba(255,255,255,0.3) }
+.export-section { padding:14px 16px; background:linear-gradient(135deg,rgba(16,217,160,0.05),rgba(255,185,56,0.03)) }
+.export-btn { width:100%; background:linear-gradient(135deg,var(--mint),var(--gold)); color:#0B1437; border:none; border-radius:11px; padding:11px 14px; font-size:13px; font-weight:800; font-family:'Outfit'; transition:all 0.2s }
+.export-btn:hover:not(:disabled) { transform:translateY(-1px); box-shadow:0 6px 20px rgba(16,217,160,0.3) }
+.export-btn:disabled { opacity:0.4; cursor:not-allowed }
+.framework-note { margin-top:auto; padding:14px 16px; font-size:9px; line-height:1.7; color:rgba(255,255,255,0.3); font-family:'JetBrains Mono'; border-top:1px solid rgba(255,255,255,0.06) }
+
+/* MAIN */
+.main { flex:1; display:flex; flex-direction:column; min-width:0 }
+.timer-bar { padding:10px 24px; background:linear-gradient(90deg,rgba(16,217,160,0.06),rgba(255,185,56,0.04)); border-bottom:1px solid rgba(16,217,160,0.15); display:flex; align-items:center; gap:12px; flex-shrink:0 }
+.timer-label { font-size:10px; font-weight:700; color:var(--tier-color); font-family:'JetBrains Mono'; letter-spacing:1px }
+.timer-progress { flex:1; height:5px; background:rgba(255,255,255,0.08); border-radius:3px; overflow:hidden }
+.timer-fill { height:100%; background:linear-gradient(90deg,var(--tier-color),var(--gold)); transition:width 1s linear }
+.timer-fill.warning { background:linear-gradient(90deg,var(--gold),#FBBF24) }
+.timer-fill.expired { background:#EF4444 }
+.timer-time { font-size:14px; font-weight:800; font-family:'JetBrains Mono'; min-width:55px; text-align:right }
+.menu-btn { display:none; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:6px 10px; color:#fff; font-size:14px }
+.pause-btn { background:rgba(255,185,56,0.12); border:1px solid rgba(255,185,56,0.25); color:var(--gold); border-radius:8px; padding:6px 12px; font-size:11px; font-weight:700; font-family:'JetBrains Mono'; display:flex; align-items:center; gap:5px }
+
+.intro { padding:24px 28px 8px; flex-shrink:0 }
+.intro-tag { display:inline-block; background:linear-gradient(135deg,rgba(16,217,160,0.12),rgba(255,185,56,0.08)); border:1px solid rgba(16,217,160,0.2); padding:4px 12px; border-radius:20px; font-size:10px; font-weight:700; color:var(--tier-color); font-family:'JetBrains Mono'; letter-spacing:1px; margin-bottom:10px }
+.intro h1 { font-size:26px; font-weight:800; font-family:'Outfit'; letter-spacing:-0.5px; margin-bottom:4px }
+.intro h1 span { background:linear-gradient(135deg,var(--mint),var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent }
+.intro p { font-size:13px; color:rgba(255,255,255,0.6); line-height:1.55; max-width:620px }
+
+.phase-tracker { display:flex; gap:5px; margin-top:12px; padding:0 28px; flex-shrink:0; flex-wrap:wrap }
+.phase-pill { padding:5px 10px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); border-radius:8px; font-size:9px; font-weight:700; color:rgba(255,255,255,0.4); font-family:'JetBrains Mono'; transition:all 0.3s }
+.phase-pill.active { background:rgba(16,217,160,0.12); border-color:var(--tier-color); color:var(--tier-color) }
+.phase-pill.done { background:rgba(16,217,160,0.08); border-color:rgba(16,217,160,0.2); color:rgba(16,217,160,0.7) }
+
+.messages { flex:1; overflow-y:auto; padding:16px 28px 8px; display:flex; flex-direction:column; gap:12px; position:relative; z-index:1 }
+.msg { display:flex; gap:10px; animation:slideUp 0.3s ease both }
+.msg.user { justify-content:flex-end }
+.msg-avatar { width:32px; height:32px; border-radius:10px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:14px }
+.msg-avatar.ai { background:linear-gradient(135deg,var(--mint),var(--gold)) }
+.msg-avatar.user { background:rgba(255,255,255,0.1) }
+.msg-bubble { max-width:78%; padding:14px 18px; border-radius:18px 18px 18px 4px; font-size:14px; line-height:1.75 }
+.msg.ai .msg-bubble { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.06) }
+.msg.user .msg-bubble { background:linear-gradient(135deg,var(--tier-color),var(--tier-soft)); color:#0B1437; font-weight:600; border-radius:18px 18px 4px 18px }
+.msg-bubble strong { color:var(--gold); font-weight:700 }
+.msg.user .msg-bubble strong { color:#0B1437 }
+.msg-bubble h2 { font-size:17px; font-weight:800; font-family:'Outfit'; margin:12px 0 6px; color:#fff }
+.msg-bubble h3 { font-size:14px; font-weight:700; margin:8px 0 4px; color:var(--mint) }
+.msg-bubble .bullet { display:flex; gap:8px; margin:3px 0 }
+.msg-bubble .bullet-marker { color:var(--mint); flex-shrink:0 }
+.msg-bubble .numbered { display:flex; gap:8px; margin:3px 0 }
+.msg-bubble .numbered-marker { color:var(--gold); font-weight:700; flex-shrink:0; font-family:'JetBrains Mono'; font-size:12px }
+.msg-bubble code { background:rgba(16,217,160,0.15); padding:2px 6px; border-radius:4px; font-family:'JetBrains Mono'; font-size:12px; color:var(--mint) }
+.msg-bubble blockquote { border-left:3px solid var(--gold); padding-left:12px; margin:8px 0; color:rgba(255,255,255,0.75); font-style:italic }
+
+.typing { display:flex; gap:10px; align-items:center }
+.typing-dots { display:flex; gap:4px }
+.typing-dot { width:7px; height:7px; border-radius:50%; background:var(--mint); animation:pulse 1.2s ease-in-out infinite }
+.typing-dot:nth-child(2) { animation-delay:0.2s } .typing-dot:nth-child(3) { animation-delay:0.4s }
+.typing-text { font-size:11px; color:rgba(255,255,255,0.4); font-family:'JetBrains Mono' }
+
+.input-area { padding:12px 28px 18px; border-top:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); flex-shrink:0 }
+.input-row { display:flex; gap:10px; align-items:flex-end; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:4px 4px 4px 16px }
+.input-row textarea { flex:1; background:transparent; border:none; outline:none; color:#fff; font-size:14px; font-family:inherit; resize:none; padding:9px 0; line-height:1.5; max-height:120px }
+.input-row textarea:disabled { opacity:0.3 }
+.send-btn { background:linear-gradient(135deg,var(--mint),var(--gold)); color:#0B1437; border:none; border-radius:12px; padding:10px 22px; font-size:14px; font-weight:800; transition:all 0.2s; flex-shrink:0 }
+.send-btn:disabled { opacity:0.3; cursor:not-allowed }
+.send-btn:not(:disabled):hover { transform:translateY(-1px); box-shadow:0 4px 16px rgba(16,217,160,0.4) }
+.input-footer { display:flex; justify-content:space-between; margin-top:8px; font-size:9px; color:rgba(255,255,255,0.25); font-family:'JetBrains Mono' }
+
+.expired-card { margin:16px 28px; padding:24px; background:linear-gradient(135deg,rgba(16,217,160,0.12),rgba(255,185,56,0.08)); border:1px solid rgba(16,217,160,0.25); border-radius:18px; text-align:center }
+.expired-card .icon { font-size:36px; margin-bottom:8px }
+.expired-card h3 { font-size:18px; font-weight:800; font-family:'Outfit'; margin-bottom:6px }
+.expired-card p { font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:16px }
+.export-final { background:linear-gradient(135deg,var(--mint),var(--gold)); color:#0B1437; border:none; border-radius:12px; padding:12px 26px; font-size:14px; font-weight:800; font-family:'Outfit' }
+
+.toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(16,217,160,0.95); color:#0B1437; padding:9px 16px; border-radius:11px; font-size:12px; font-weight:700; z-index:2000; animation:slideUp 0.25s ease }
+
+@media (max-width:768px) {
+  .sidebar { position:absolute; top:0; left:0; height:100%; z-index:100; transform:translateX(-100%); transition:transform 0.3s }
+  .sidebar.open { transform:translateX(0) }
+  .menu-btn { display:flex }
+  .intro h1 { font-size:22px }
+  .msg-bubble { max-width:88%; font-size:13px }
+}
+</style>
+</head>
+<body>
+
+<!-- KEY GATE -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div class="gate-brand"><div class="gate-brand-icon">FR</div><div class="gate-brand-text">Future<span>Ready</span> AI</div></div>
+    <div><div class="gate-tier">🗺️ FULL BLUEPRINT — $15 / 60 MIN</div><span class="premium-tag">PREMIUM</span></div>
+    <h1>Enter Your Activation Key</h1>
+    <p>Paste the activation key from your purchase email to unlock your Full Blueprint premium session.</p>
+    <div id="resumeOffer"></div>
+    <div id="gateError"></div>
+    <div class="gate-field">
+      <label class="gate-label">ACTIVATION KEY</label>
+      <input type="text" class="gate-input" id="keyInput" placeholder="FR-FB-XXXX-XXXX-XXXX-XXXX" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" />
+    </div>
+    <button class="gate-btn" id="gateBtn" onclick="validateAndUnlock()">Unlock Premium Session →</button>
+    <div class="gate-help">Don't have a key? <a href="/" target="_top">Purchase a session</a></div>
+  </div>
+</div>
+
+<!-- PAUSED OVERLAY -->
+<div class="paused-overlay" id="pausedOverlay">
+  <div class="paused-card">
+    <div class="icon">⏸️</div>
+    <h2>Session Paused</h2>
+    <p>Your progress is saved. Resume anytime within 14 days from this device using the same key.</p>
+    <div class="paused-summary" id="pausedSummary"></div>
+    <div class="paused-buttons">
+      <button class="paused-btn secondary" onclick="exitSession()">Exit (Save & Close)</button>
+      <button class="paused-btn primary" onclick="resumeSession()">▶ Resume Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div class="app hidden" id="app">
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand"><div class="sidebar-brand-icon">FR</div><div class="sidebar-brand-text">Future<span>Ready</span> AI</div></div>
+      <div><div class="tier-badge">🗺️ FULL BLUEPRINT</div><span class="premium-tag">PREMIUM</span></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Premium Tools</div>
+      <div class="lab-tool" onclick="triggerTool('Run a mock interview specific to my target career')"><span class="icon">🎤</span><span class="name">Mock Interview</span><span class="arrow">→</span></div>
+      <div class="lab-tool" onclick="triggerTool('Write me a personalized cover letter')"><span class="icon">✍️</span><span class="name">Cover Letter Gen</span><span class="arrow">→</span></div>
+      <div class="lab-tool" onclick="triggerTool('Help me write a university application essay')"><span class="icon">📝</span><span class="name">Essay Generator</span><span class="arrow">→</span></div>
+      <div class="lab-tool" onclick="triggerTool('Simulate 3 different career paths for me - safe, ambitious, unconventional')"><span class="icon">🔮</span><span class="name">3-Path Simulation</span><span class="arrow">→</span></div>
+      <div class="lab-tool" onclick="triggerTool('Analyze my skills against the 2030 job market projections')"><span class="icon">📈</span><span class="name">2030 Skills Audit</span><span class="arrow">→</span></div>
+      <div class="lab-tool" onclick="triggerTool('Show me detailed salary benchmarks for my field')"><span class="icon">💰</span><span class="name">Salary Deep Data</span><span class="arrow">→</span></div>
+    </div>
+    <div class="export-section">
+      <div class="sidebar-label">Export Your Blueprint</div>
+      <button class="export-btn" id="exportBtn" onclick="exportBlueprint()" disabled>📄 Download Career Blueprint</button>
+      <div style="font-size:9px;color:rgba(255,255,255,0.35);margin-top:6px;text-align:center;font-family:'JetBrains Mono'">Available after intake phase</div>
+    </div>
+    <div class="framework-note">
+      🤖 Algorithm v2026.3 PREMIUM<br>📈 Live job market data<br>🔮 3-scenario simulator<br>📄 Exportable blueprint<br>💾 Session auto-save: ON
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="timer-bar">
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+      <span class="timer-label">60:00 SESSION</span>
+      <div class="timer-progress"><div class="timer-fill" id="timerFill" style="width:0%"></div></div>
+      <span class="timer-time" id="timerTime">60:00</span>
+      <button class="pause-btn" id="pauseBtn" onclick="pauseSession()" disabled>⏸ PAUSE</button>
+    </div>
+    <div class="intro">
+      <div class="intro-tag">⭐ PREMIUM · ALGORITHM PRIORITY ACCESS</div>
+      <h1>Full <span>Blueprint</span> — $15</h1>
+      <p>The complete 60-minute AI career consultation. 7 phases, 3-path simulation, AI-generated essays, 2030 future-proofing, and a downloadable career blueprint.</p>
+    </div>
+    <div class="phase-tracker" id="phaseTracker">
+      <div class="phase-pill active" data-phase="1">1. INTAKE</div>
+      <div class="phase-pill" data-phase="2">2. 5 C's AUDIT</div>
+      <div class="phase-pill" data-phase="3">3. 3-PATH SIM</div>
+      <div class="phase-pill" data-phase="4">4. MOCK INTERVIEW</div>
+      <div class="phase-pill" data-phase="5">5. ESSAY/COVER</div>
+      <div class="phase-pill" data-phase="6">6. 2030 PROOFING</div>
+      <div class="phase-pill" data-phase="7">7. EXPORT</div>
+    </div>
+    <div class="messages" id="messages"></div>
+    <div class="input-area">
+      <div class="input-row">
+        <textarea id="input" placeholder="Tell me everything — your background, goals, fears. Or tap a premium tool..." rows="1"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+      </div>
+      <div class="input-footer">
+        <span>🗺️ Full Blueprint · $15 / 60 min · PREMIUM · Auto-saved</span>
+        <span>Press ⏸ to pause anytime</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TIER_ID = 'full-blueprint';
+const TIER_LABEL = 'Full Blueprint';
+const TIER_DURATION_MIN = 60;
+const NUM_PHASES = 7;
+const TOTAL_SECONDS = TIER_DURATION_MIN * 60;
+const STORAGE_PREFIX = 'futureready_session_';
+const STORAGE_EXPIRY_DAYS = 14;
+const API_VALIDATE = '/api/validate-key';
+const API_CHAT = '/api/chat-paid';
+
+let activationKey = '', messages = [], elapsed = 0, currentPhase = 1, sessionStarted = false, timerInterval, saveDebounce, isPaused = false;
+
+// ─── KEY GATE ───
+async function validateAndUnlock() {
+  const rawKey = document.getElementById('keyInput').value.trim();
+  if (!rawKey) { showGateError('Please paste your activation key.'); return; }
+  const btn = document.getElementById('gateBtn');
+  btn.disabled = true; btn.textContent = 'Validating...';
+  document.getElementById('gateError').innerHTML = '';
+  try {
+    const res = await fetch(API_VALIDATE, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ activationKey: rawKey, expectedTier: TIER_ID }) });
+    const data = await res.json();
+    if (!res.ok || !data.valid) {
+      showGateError(data.message || 'Invalid key. Please check and try again.');
+      btn.disabled = false; btn.textContent = 'Unlock Premium Session →'; return;
+    }
+    activationKey = rawKey;
+    const saved = loadSavedSession(rawKey);
+    if (saved) { showResumeOffer(saved); btn.disabled = false; btn.textContent = 'Unlock Premium Session →'; }
+    else { startSession(null); }
+  } catch (e) {
+    showGateError('Network error. Please try again.');
+    btn.disabled = false; btn.textContent = 'Unlock Premium Session →';
+  }
+}
+
+function showGateError(msg) { document.getElementById('gateError').innerHTML = `<div class="gate-error">⚠️ ${msg}</div>`; }
+
+function showResumeOffer(saved) {
+  const remaining = TOTAL_SECONDS - saved.elapsed;
+  const rm = Math.floor(remaining / 60), rs = remaining % 60;
+  document.getElementById('resumeOffer').innerHTML = `
+    <div class="resume-card">
+      <div class="resume-title">💾 Saved Session Found</div>
+      <div class="resume-detail">Paused from ${new Date(saved.lastSavedAt).toLocaleString()}.<br><strong>${saved.messages.length} messages</strong> · <strong>${rm}:${rs.toString().padStart(2,'0')} remaining</strong> · Phase ${saved.currentPhase} of ${NUM_PHASES}</div>
+      <div class="resume-actions">
+        <button class="resume-btn secondary" onclick="discardSavedAndStart()">Start Fresh</button>
+        <button class="resume-btn primary" onclick="resumeFromSaved()">▶ Resume Session</button>
+      </div>
+    </div>`;
+  document.getElementById('keyInput').disabled = true;
+  document.getElementById('gateBtn').style.display = 'none';
+}
+
+function discardSavedAndStart() { localStorage.removeItem(STORAGE_PREFIX + activationKey); startSession(null); }
+function resumeFromSaved() { startSession(loadSavedSession(activationKey)); }
+
+function startSession(saved) {
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('app').classList.remove('hidden');
+  if (saved) {
+    messages = saved.messages || []; elapsed = saved.elapsed || 0; currentPhase = saved.currentPhase || 1;
+    messages.forEach(m => renderMessage(m.role, m.content));
+    updatePhases(); updateTimer();
+    if (currentPhase >= 3) document.getElementById('exportBtn').disabled = false;
+    sessionStarted = true; startTimer();
+    showToast('Session resumed');
+  } else {
+    setTimeout(() => {
+      appendMessage('assistant', `## 🗺️ Welcome to Full Blueprint — Premium Tier\n\nThis is the most comprehensive AI career consultation available. Over the next **60 minutes**, we'll go through **7 phases** and you'll leave with a downloadable **Career Blueprint** document.\n\nHere's what makes this session different:\n- 🔮 **3-Path Simulation** — safe, ambitious, AND unconventional career scenarios\n- ✍️ **AI-Generated Essays & Cover Letters** customized to you\n- 📈 **2030 Skills Audit** — what's AI-proof, what's not\n- 📄 **Exportable Blueprint** — your complete personalized roadmap\n\n💡 **Tip:** Press ⏸ PAUSE anytime — your progress auto-saves.\n\nLet's begin. **Start with this: What's your education level right now, and what field are you considering (even if you're not sure)?**\n\nThe more honest and specific you are, the better your blueprint will be.`);
+    }, 400);
+  }
+  document.getElementById('pauseBtn').disabled = false;
+  document.getElementById('input').focus();
+}
+
+// ─── PAUSE / RESUME ───
+function pauseSession() {
+  if (!sessionStarted || isExpired() || isPaused) return;
+  isPaused = true; saveSession(); if (timerInterval) clearInterval(timerInterval);
+  const r = TOTAL_SECONDS - elapsed;
+  document.getElementById('pausedSummary').innerHTML = `
+    <div class="paused-summary-row"><span>Session:</span><strong>${TIER_LABEL} (Premium)</strong></div>
+    <div class="paused-summary-row"><span>Phase:</span><strong>${currentPhase} of ${NUM_PHASES}</strong></div>
+    <div class="paused-summary-row"><span>Time used:</span><strong>${Math.floor(elapsed/60)}:${(elapsed%60).toString().padStart(2,'0')}</strong></div>
+    <div class="paused-summary-row"><span>Time remaining:</span><strong style="color:var(--gold)">${Math.floor(r/60)}:${(r%60).toString().padStart(2,'0')}</strong></div>
+    <div class="paused-summary-row"><span>Messages:</span><strong>${messages.length}</strong></div>`;
+  document.getElementById('pausedOverlay').classList.add('show');
+}
+function resumeSession() { isPaused = false; document.getElementById('pausedOverlay').classList.remove('show'); startTimer(); showToast('Session resumed'); document.getElementById('input').focus(); }
+function exitSession() {
+  saveSession();
+  document.getElementById('pausedOverlay').classList.remove('show');
+  showToast('Session saved. Return anytime with your key.');
+  setTimeout(() => { if (window.top !== window.self) document.getElementById('pausedOverlay').classList.add('show'); else window.location.href = '/'; }, 1500);
+}
+
+// ─── PERSISTENCE ───
+function saveSession() {
+  if (!activationKey || !messages.length) return;
+  try { localStorage.setItem(STORAGE_PREFIX + activationKey, JSON.stringify({ version: 1, tier: TIER_ID, activationKey, messages, elapsed, currentPhase, lastSavedAt: Date.now() })); } catch (e) { console.warn('Save failed', e); }
+}
+function loadSavedSession(key) {
+  try {
+    const raw = localStorage.getItem(STORAGE_PREFIX + key);
+    if (!raw) return null;
+    const state = JSON.parse(raw);
+    if ((Date.now() - state.lastSavedAt) / (1000*60*60*24) > STORAGE_EXPIRY_DAYS) { localStorage.removeItem(STORAGE_PREFIX + key); return null; }
+    if (state.elapsed >= TOTAL_SECONDS) return null;
+    return state;
+  } catch (e) { return null; }
+}
+function autoSave() { clearTimeout(saveDebounce); saveDebounce = setTimeout(saveSession, 800); }
+
+// ─── CHAT ───
+async function sendMessage() {
+  const input = document.getElementById('input');
+  const text = input.value.trim();
+  if (!text || isExpired() || isPaused) return;
+  if (!sessionStarted) { sessionStarted = true; startTimer(); }
+  appendMessage('user', text);
+  input.value = ''; input.style.height = 'auto';
+  setSending(true); showTyping();
+  try {
+    const res = await fetch(API_CHAT, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ activationKey, messages: messages.map(m => ({ role: m.role, content: m.content })), elapsedSeconds: elapsed, currentPhase })
+    });
+    removeTyping();
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      if (res.status === 401) appendMessage('assistant', '🔒 **Activation key rejected.** Contact support.');
+      else if (res.status === 429) appendMessage('assistant', `⏱ ${err.message || 'Rate limit hit. Wait a moment.'}`);
+      else appendMessage('assistant', `⚠️ ${err.message || 'Request failed.'}`);
+      setSending(false); return;
+    }
+    const data = await res.json();
+    let aiText = '';
+    if (data.content) for (const b of data.content) if (b.type === 'text' && b.text) aiText += b.text;
+    if (!aiText) aiText = "Tell me a bit more — I want to capture this accurately for your blueprint.";
+    const phaseMatch = aiText.match(/\[PHASE_(\d)\]/);
+    if (phaseMatch) {
+      currentPhase = parseInt(phaseMatch[1]); updatePhases();
+      aiText = aiText.replace(/\[PHASE_\d\]/g, '').trim();
+      if (currentPhase >= 3) document.getElementById('exportBtn').disabled = false;
+    }
+    appendMessage('assistant', aiText);
+  } catch (e) { console.error(e); removeTyping(); appendMessage('assistant', "⚠️ Connection hiccup — try again."); }
+  setSending(false); document.getElementById('input').focus();
+}
+
+function triggerTool(prompt) { document.getElementById('input').value = prompt; sendMessage(); document.getElementById('sidebar').classList.remove('open'); }
+
+function appendMessage(role, content) { messages.push({ role, content }); renderMessage(role, content); autoSave(); }
+
+function renderMessage(role, content) {
+  const c = document.getElementById('messages'), d = document.createElement('div');
+  d.className = `msg ${role === 'user' ? 'user' : 'ai'}`;
+  d.innerHTML = `${role === 'assistant' ? '<div class="msg-avatar ai">🤖</div>' : ''}<div class="msg-bubble">${formatMarkdown(content)}</div>${role === 'user' ? '<div class="msg-avatar user">👤</div>' : ''}`;
+  c.appendChild(d); c.scrollTop = c.scrollHeight;
+}
+
+function showTyping() {
+  const c = document.getElementById('messages'), d = document.createElement('div'); d.className = 'msg ai'; d.id = 'typingIndicator';
+  d.innerHTML = `<div class="msg-avatar ai">🤖</div><div class="msg-bubble"><div class="typing"><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div><span class="typing-text">Premium algorithm processing · scanning 2030 projections...</span></div></div>`;
+  c.appendChild(d); c.scrollTop = c.scrollHeight;
+}
+
+function removeTyping() { const t = document.getElementById('typingIndicator'); if (t) t.remove(); }
+function setSending(s) { document.getElementById('sendBtn').disabled = s; document.getElementById('input').disabled = s; }
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+
+function updatePhases() {
+  document.querySelectorAll('.phase-pill').forEach(p => {
+    const phase = parseInt(p.dataset.phase);
+    p.classList.remove('active', 'done');
+    if (phase < currentPhase) p.classList.add('done');
+    if (phase === currentPhase) p.classList.add('active');
+  });
+}
+
+function startTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    if (isPaused) return;
+    elapsed++; updateTimer();
+    if (elapsed % 10 === 0) saveSession();
+    if (elapsed >= TOTAL_SECONDS) { clearInterval(timerInterval); showExpired(); }
+  }, 1000);
+}
+
+function updateTimer() {
+  const r = TOTAL_SECONDS - elapsed;
+  document.getElementById('timerTime').textContent = `${Math.floor(r/60)}:${(r%60).toString().padStart(2,'0')}`;
+  const fill = document.getElementById('timerFill');
+  fill.style.width = `${(elapsed/TOTAL_SECONDS)*100}%`;
+  fill.classList.remove('warning', 'expired');
+  if (r <= 0) { fill.classList.add('expired'); document.getElementById('timerTime').textContent = 'TIME UP'; }
+  else if (r <= 300) fill.classList.add('warning');
+}
+
+function isExpired() { return elapsed >= TOTAL_SECONDS; }
+
+function showExpired() {
+  saveSession(); document.getElementById('pauseBtn').disabled = true; document.getElementById('exportBtn').disabled = false;
+  const c = document.getElementById('messages'), card = document.createElement('div');
+  card.className = 'expired-card';
+  card.innerHTML = `<div class="icon">🎉</div><h3>Full Blueprint Complete!</h3><p>Don't forget to download your comprehensive career blueprint document. This is yours to keep, revisit, and act on.</p><button class="export-final" onclick="exportBlueprint()">📄 Download Your Blueprint</button>`;
+  c.appendChild(card); c.scrollTop = c.scrollHeight;
+  document.getElementById('input').disabled = true; document.getElementById('sendBtn').disabled = true;
+  document.getElementById('input').placeholder = 'Session complete — export your blueprint';
+}
+
+// ─── EXPORT ───
+function exportBlueprint() {
+  let content = `# YOUR FUTUREREADY CAREER BLUEPRINT\n\n`;
+  content += `**Generated:** ${new Date().toLocaleString()}\n`;
+  content += `**Session:** Full Blueprint (60 min · $15 · Premium)\n`;
+  content += `**AI Algorithm:** v2026.3 PREMIUM · Google Gemini\n\n---\n\n`;
+  content += `## SESSION TRANSCRIPT\n\n`;
+  messages.forEach(m => {
+    content += m.role === 'user' ? `### 👤 You:\n${m.content}\n\n` : `### 🤖 FutureReady AI:\n${m.content}\n\n`;
+  });
+  content += `\n---\n\n## ABOUT THIS BLUEPRINT\n\n`;
+  content += `This blueprint was generated by FutureReady AI using:\n`;
+  content += `- Real-time labor market intelligence\n- The 5 C's Framework (Curiosity, Courage, Creativity, Compassion, Communication)\n- 3-path career simulation engine\n- 2030 skills future-proofing analysis\n\n`;
+  content += `**Remember:** 70% of job skills will change by 2030. Keep this blueprint as your reference, but stay adaptable.\n\n`;
+  content += `---\n\n*© ${new Date().getFullYear()} FutureReady AI · Algorithm-Driven Career Consulting*\n`;
+  const blob = new Blob([content], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `FutureReady-Blueprint-${new Date().toISOString().split('T')[0]}.md`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  showToast('Blueprint downloaded!');
+}
+
+function formatMarkdown(text) {
+  if (!text) return '';
+  return text
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>').replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+    .replace(/^[-•] (.+)$/gm, '<div class="bullet"><span class="bullet-marker">•</span><span>$1</span></div>')
+    .replace(/^(\d+)\. (.+)$/gm, '<div class="numbered"><span class="numbered-marker">$1.</span><span>$2</span></div>')
+    .replace(/\n\n/g, '<div style="height:8px"></div>').replace(/\n/g, '<br/>');
+}
+
+function showToast(msg) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2500); }
+
+// ─── AUTO-SAVE HOOKS ───
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && sessionStarted && !isExpired()) saveSession(); });
+window.addEventListener('beforeunload', () => { if (sessionStarted && !isExpired()) saveSession(); });
+
+document.getElementById('input').addEventListener('input', e => { e.target.style.height = 'auto'; e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px'; });
+document.getElementById('input').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
+
+// Auto-fill key from URL ?key= param
+window.addEventListener('DOMContentLoaded', () => {
+  const urlKey = new URLSearchParams(window.location.search).get('key');
+  if (urlKey) { document.getElementById('keyInput').value = urlKey; setTimeout(() => validateAndUnlock(), 300); }
+});
+document.getElementById('keyInput').addEventListener('keydown', e => { if (e.key === 'Enter') validateAndUnlock(); });
+</script>
+</body>
+</html>

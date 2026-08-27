@@ -1,0 +1,8 @@
+{
+  "name": "futureready-paid-bots",
+  "version": "1.0.0",
+  "description": "FutureReady AI paid chatbots — Deep Dive ($9) + Strategy Lab ($12) with activation key access, pause/resume, powered by Google Gemini free tier",
+  "private": true,
+  "engines": { "node": ">=18.0.0" },
+  "type": "module"
+}
