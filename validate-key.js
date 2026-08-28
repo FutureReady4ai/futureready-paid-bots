@@ -1,6 +1,3 @@
-// api/validate-key.js — Standalone key validation
-// Used by chatbot unlock screen to check key before showing the chat UI
-
 import { validateKey } from './_lib/keys.js';
 import { TIER_CONFIG } from './_lib/prompts.js';
 
@@ -32,14 +29,11 @@ export default async function handler(req, res) {
       });
     }
 
-    // Optional: verify the key matches the tier they're trying to access
     if (expectedTier && validated.tier !== expectedTier) {
       return res.status(403).json({
         valid: false,
         error: 'wrong_tier',
-        message: `This key is for ${validated.label}, but you're trying to access a different tier. Use the correct page or contact support.`,
-        actualTier: validated.tier,
-        actualLabel: validated.label
+        message: 'This key is for ' + validated.label + ', but you are trying to access a different tier.'
       });
     }
 
