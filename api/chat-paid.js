@@ -136,7 +136,7 @@ export default async function handler(req, res) {
     }
 
     if (!geminiResponse.ok) {
-      const errorText = await geminiResponse.text();
+      const errorText = lastError || '';
       console.error('Gemini API error', geminiResponse.status, errorText);
       if (geminiResponse.status === 429) {
         return res.status(429).json({
