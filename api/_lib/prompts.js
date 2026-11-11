@@ -166,7 +166,7 @@ FORMAT: ## headers, ### subsections, **bold**, numbered for ranked, 🟢🟡🔴
 };
 
 export const TIER_CONFIG = {
-  'deep-dive':       { maxOutputTokens: 1500, durationMinutes: 30, price: 9 },
-  'strategy-lab':    { maxOutputTokens: 2000, durationMinutes: 45, price: 12 },
-  'full-blueprint':  { maxOutputTokens: 2500, durationMinutes: 60, price: 15 }
+  'deep-dive':       { maxOutputTokens: 8192, durationMinutes: 30, price: 9 },
+  'strategy-lab':    { maxOutputTokens: 8192, durationMinutes: 45, price: 12 },
+  'full-blueprint':  { maxOutputTokens: 8192, durationMinutes: 60, price: 15 }
 };
