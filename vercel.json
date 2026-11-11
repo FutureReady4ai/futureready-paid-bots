@@ -1,5 +1,8 @@
 {
   "version": 2,
+  "rewrites": [
+    { "source": "/deep-dive.html", "destination": "/index.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
